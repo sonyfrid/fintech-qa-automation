@@ -1,94 +1,124 @@
-# Fintech QA Automation Framework
+# 🏦 Fintech QA Automation (Playwright + TypeScript)
 
-Профессиональный фреймворк для автоматизации тестирования банковского приложения Parabank.
+![Playwright](https://img.shields.io/badge/Playwright-45ba4b?style=for-the-badge&logo=Playwright&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
+![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-2088FF?style=for-the-badge&logo=github-actions&logoColor=white)
+![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
 
-## 🎯 О проекте
+<div align="center">
+  <img src="https://playwright.dev/img/playwright-logo.svg" width="200" alt="Playwright Logo">
+  <h3>Автоматизированное тестирование банковского приложения</h3>
+</div>
 
-Этот проект демонстрирует навыки автоматизации тестирования финансового приложения с использованием Playwright и TypeScript.
+---
 
-## 🚀 Технологии
+## 📋 Описание проекта
 
-- **Playwright** - фреймворк для автоматизации
-- **TypeScript** - типизированный JavaScript
-- **Page Object Pattern** - паттерн проектирования
-- **Custom Fixtures** - переиспользуемые компоненты
+Проект демонстрирует профессиональный подход к автоматизации тестирования финансового приложения **Parabank**. Здесь реализованы лучшие практики QA Automation:
 
-## 📁 Структура проекта
+- ✅ **E2E тестирование** пользовательских сценариев
+- ✅ **API тестирование** банковских операций
+- ✅ **Page Object Pattern** для поддерживаемости кода
+- ✅ **Типобезопасность** с TypeScript
+- ✅ **CI/CD** для автоматического запуска тестов
+- ✅ **Отчёты** с видео, скриншотами и трейсами
 
-**\`\`\`
-├── pages/              # Page Objects (страницы приложения)
-│   ├── LoginPage.ts    # Страница логина
-│   ├── AccountsPage.ts # Страница счетов
-│   └── TransferPage.ts # Страница переводов
-├── fixtures/           # Кастомные фикстуры
-│   └── base.fixture.ts # Базовые фикстуры
-├── tests/              # Тесты
-│   ├── specs/          # UI тесты
-│   │   ├── login.spec.ts
-│   │   ├── accounts.spec.ts
-│   │   └── transfer.spec.ts
-│   └── api/            # API тесты
-│       └── api.spec.ts
-└── playwright.config.ts # Конфигурация
-\`\`\`
-**
-## 🧪 Тестовые сценарии
+---
 
-### UI Тесты
-1. **TC-001**: Вход с валидными данными
-2. **TC-002**: Вход с неверным паролем
-3. **TC-003**: Просмотр баланса
-4. **TC-004**: Проверка таблицы счетов
-5. **TC-005**: Перевод средств
+## 🚀 Быстрый старт
 
-### API Тесты
-6. **TC-006**: Логин через API
-7. **TC-007**: Получение информации о счетах
+### Предварительные требования
 
-## 🏃 Запуск тестов
+- Node.js 18+
+- npm 9+
+- Git
 
-\`\`\`bash
-# Установка зависимостей
+### Установка
+
+```bash
+# Клонировать репозиторий
+git clone https://github.com/sonyfrid/fintech-qa-automation.git
+
+# Перейти в папку проекта
+cd fintech-qa-automation
+
+# Установить зависимости
 npm install
 
-# Установка Playwright
-npx playwright install chromium
+# Установить браузеры Playwright
+npx playwright install
 
-# Запуск всех тестов
+# Все тесты
 npm test
 
-# Запуск с браузером
+# С браузером (видеть, что происходит)
 npm run test:headed
 
-# Запуск только UI тестов
-npx playwright test tests/specs
+# С отладкой
+npm run test:debug
 
-# Запуск только API тестов
-npx playwright test tests/api
-
-# Открыть отчет
+# Открыть HTML отчёт
 npm run report
-\`\`\`
 
-## 📊 Отчеты
+📊 Тестовые сценарии
+#	Тест	Описание	Тип	Статус
+1	Login	Проверка успешной авторизации пользователя	UI	✅
+2	Balance	Проверка отображения баланса счёта	UI	✅
+3	Transfer	Перевод средств между счетами	UI	✅
+4	API Accounts	Получение информации о счетах через REST API	API	✅
+5	Error Handling	Обработка неверных учетных данных	UI	✅
 
-После запуска тестов создаются:
-- HTML отчет: \`playwright-report/index.html\`
-- Скриншоты ошибок: \`test-results/\`
-- Видео запуска: \`test-results/\`
+fintech-qa-automation/
+│
+├── 📁 tests/                    # Тестовые сценарии
+│   ├── banking.spec.ts          # Банковские операции (E2E)
+│   └── api.spec.ts              # API тесты (скоро)
+│
+├── 📁 pages/                    # Page Objects (скоро)
+│   ├── LoginPage.ts             # Страница логина
+│   ├── DashboardPage.ts         # Главная страница
+│   └── TransferPage.ts          # Страница переводов
+│
+├── 📁 fixtures/                 # Кастомные фикстуры
+│   └── auth.fixture.ts          # Фикстуры авторизации
+│
+├── 📁 data/                     # Тестовые данные
+│   └── users.ts                 # Учетные записи
+│
+├── 📁 utils/                    # Утилиты
+│   └── helpers.ts               # Вспомогательные функции
+│
+├── 📄 playwright.config.ts      # Конфигурация Playwright
+├── 📄 package.json              # Зависимости и скрипты
+└── 📄 README.md                 # Документация
 
-## 🔍 Особенности
+🔧 Технологический стек
+Основные технологии
+Playwright — фреймворк для E2E тестирования
 
-- **Page Object Pattern** - разделение логики страниц
-- **Кастомные фикстуры** - переиспользуемые компоненты
-- **Понятные названия тестов** - соответствуют тест-кейсам
-- **Логирование** - вывод информации о выполнении
-- **Обработка ошибок** - skip если предусловия не выполнены
+TypeScript — типизированный JavaScript
 
-## 📝 Автор
+Node.js — среда выполнения
 
-Soni Fridmo
+📊 Пример отчёта
+После запуска тестов создаётся HTML-отчёт с:
 
-## 📄 Лицензия
+📹 Видео прохождения тестов
 
-ISC
+📸 Скриншоты ошибок
+
+🔍 Трейсы для отладки
+
+⏱️ Время выполнения
+
+
+GitHub - sonyfrid
+
+email - alexandrikuskos@gmail.com
+
+LinkedIn - https://www.linkedin.com/in/sonyfridmo/
+
+telegram → @fridmo_sony
+
+<div align="center"> <sub>Built with ❤️ by QA Automation Engineer</sub> </div> ```
+
