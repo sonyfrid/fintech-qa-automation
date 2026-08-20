@@ -1,0 +1,20 @@
+{
+  "name": "fintech-qa-automation",
+  "version": "1.0.0",
+  "description": "Professional QA Automation Framework for Fintech Application",
+  "scripts": {
+    "test": "npx playwright test",
+    "test:headed": "npx playwright test --headed",
+    "test:debug": "npx playwright test --debug",
+    "test:api": "npx playwright test tests/api --headed",
+    "report": "npx playwright show-report",
+    "clean": "rm -rf test-results playwright-report"
+  },
+  "keywords": ["playwright", "automation", "fintech", "qa"],
+  "author": "Your Name",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.40.0",
+    "@faker-js/faker": "^8.0.0"
+  }
+}

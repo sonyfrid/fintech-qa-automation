@@ -1,0 +1,19 @@
+# Зависимости
+node_modules/
+
+# Результаты тестов
+test-results/
+playwright-report/
+screenshots/
+
+# Временные файлы
+*.zip
+*.png
+*.webm
+
+# Системные файлы
+.DS_Store
+Thumbs.db
+
+# Логи
+*.log
