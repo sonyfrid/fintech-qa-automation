@@ -59,7 +59,7 @@ npm run test:debug
 
 # Открыть HTML отчёт
 npm run report
-
+```
 ## 📊 Тестовые сценарии
 
 ### 🔐 Авторизация
