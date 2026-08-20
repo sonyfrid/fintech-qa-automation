@@ -32,7 +32,7 @@
 - Node.js 18+
 - npm 9+
 - Git
-
+--- 
 ### Установка
 
 ```bash
@@ -176,7 +176,7 @@ fintech-qa-automation/
 ### HTML Report (Playwright)
 
 После каждого запуска тестов автоматически создаётся HTML-отчёт:
-#bash
+```bash
 #npm run report
 
 Отчёт включает:
@@ -222,7 +222,7 @@ Running 5 tests using 1 worker
 Просмотр трейса:
 npx playwright show-trace test-results/trace.zip
 
----
+
 
 ## 👨‍💻 Автор
 
@@ -239,6 +239,6 @@ npx playwright show-trace test-results/trace.zip
 
 </div>
 
----
+
 
 
