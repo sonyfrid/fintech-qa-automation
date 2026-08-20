@@ -60,13 +60,62 @@ npm run test:debug
 # Открыть HTML отчёт
 npm run report
 
-📊 Тестовые сценарии
-#	Тест	Описание	Тип	Статус
-1	Login	Проверка успешной авторизации пользователя	UI	✅
-2	Balance	Проверка отображения баланса счёта	UI	✅
-3	Transfer	Перевод средств между счетами	UI	✅
-4	API Accounts	Получение информации о счетах через REST API	API	✅
-5	Error Handling	Обработка неверных учетных данных	UI	✅
+## 📊 Тестовые сценарии
+
+### 🔐 Авторизация
+
+| # | Тест | Описание | Ожидаемый результат | Статус |
+|---|------|----------|-------------------|--------|
+| 1 | Login with valid credentials | Вход с корректными данными (john/demo) | Успешная авторизация, переход на страницу Accounts Overview | ✅ |
+| 2 | Login with invalid credentials | Вход с неверным паролем | Отображение сообщения об ошибке | ✅ |
+| 3 | Login with empty fields | Вход с пустыми полями | Валидация формы, запрос на заполнение полей | 🔄 |
+
+### 💰 Операции со счетами
+
+| # | Тест | Описание | Ожидаемый результат | Статус |
+|---|------|----------|-------------------|--------|
+| 4 | Check account balance | Просмотр баланса счёта | Отображение актуального баланса ($250.50) | ✅ |
+| 5 | Open account details | Открытие деталей счёта | Показ истории операций по счёту | 🔄 |
+| 6 | Create new account | Создание нового счёта | Новый счёт появляется в списке | 📝 |
+
+### 💸 Переводы средств
+
+| # | Тест | Описание | Ожидаемый результат | Статус |
+|---|------|----------|-------------------|--------|
+| 7 | Transfer funds | Перевод $100 между счетами | Успешное завершение, балансы обновлены | ✅ |
+| 8 | Transfer with insufficient funds | Перевод суммы больше баланса | Сообщение об ошибке, перевод отклонён | 📝 |
+| 9 | Transfer to invalid account | Перевод на несуществующий счёт | Валидация, перевод не выполнен | 📝 |
+
+### 🔌 API тесты
+
+| # | Тест | Описание | Метод | Статус |
+|---|------|----------|-------|--------|
+| 10 | Get account information | Получение информации о счетах клиента | GET /accounts | ✅ |
+| 11 | Create account via API | Создание счёта через REST API | POST /accounts | 📝 |
+| 12 | Transfer via API | Перевод средств через API | POST /transfer | 🔄 |
+
+### 🛡️ Безопасность и ошибки
+
+| # | Тест | Описание | Ожидаемый результат | Статус |
+|---|------|----------|-------------------|--------|
+| 13 | Session timeout | Проверка завершения сессии | Автоматический logout после таймаута | 📝 |
+| 14 | SQL injection attempt | Попытка SQL-инъекции в полях | Безопасная обработка, ошибка валидации | 📝 |
+| 15 | XSS attempt | Попытка XSS в полях формы | Экранирование спецсимволов | 📝 |
+
+---
+
+### Легенда статусов:
+- ✅ **Passed** — тест успешно проходит
+- 🔄 **In Progress** — тест в разработке
+- 📝 **Planned** — запланирован к реализации
+- ❌ **Failed** — тест падает (исправляется)
+
+### Статистика:
+- **Всего тестов:** 15
+- **Проходят:** 5
+- **В разработке:** 4
+- **Запланировано:** 6
+- **Покрытие:** 33%
 
 fintech-qa-automation/
 │
@@ -92,33 +141,129 @@ fintech-qa-automation/
 ├── 📄 package.json              # Зависимости и скрипты
 └── 📄 README.md                 # Документация
 
-🔧 Технологический стек
-Основные технологии
-Playwright — фреймворк для E2E тестирования
+## 🔧 Технологический стек
 
-TypeScript — типизированный JavaScript
+### Основные технологии
 
-Node.js — среда выполнения
+| Технология | Версия | Назначение |
+|------------|--------|------------|
+| [Playwright](https://playwright.dev/) | 1.40+ | E2E тестирование |
+| [TypeScript](https://www.typescriptlang.org/) | 5.0+ | Язык программирования |
+| [Node.js](https://nodejs.org/) | 18+ | Среда выполнения |
 
-📊 Пример отчёта
-После запуска тестов создаётся HTML-отчёт с:
+### Фреймворки и библиотеки
 
-📹 Видео прохождения тестов
+- **Playwright Test Runner** — запуск и организация тестов
+- **Page Object Model** — паттерн проектирования
+- **Custom Fixtures** — переиспользуемые компоненты
 
-📸 Скриншоты ошибок
+### Инструменты разработки
 
-🔍 Трейсы для отладки
+- **GitHub Actions** — CI/CD pipeline
+- **ESLint** — линтер кода
+- **Prettier** — форматирование кода
 
-⏱️ Время выполнения
+### Планируется добавить
+
+- [ ] Allure Report
+- [ ] Grafana + Prometheus
+- [ ] k6 для нагрузочного тестирования
+- [ ] TestRail интеграция
 
 
-GitHub - sonyfrid
+## 📊 Пример отчёта
 
-email - alexandrikuskos@gmail.com
+### HTML Report (Playwright)
 
-LinkedIn - https://www.linkedin.com/in/sonyfridmo/
+После каждого запуска тестов автоматически создаётся HTML-отчёт:
 
-telegram → @fridmo_sony
+```bash
+npm run report
+Отчёт включает:
 
-<div align="center"> <sub>Built with ❤️ by QA Automation Engineer</sub> </div> ```
+📈 Общая статистика
+Количество пройденных/упавших/пропущенных тестов
+
+Общее время выполнения
+
+Процент успешности
+
+🎬 Медиа-материалы
+Видео — запись прохождения каждого теста
+
+Скриншоты — автоматически при падении
+
+Трейсы — полная история действий для отладки
+
+🔍 Детализация
+Пошаговое выполнение каждого теста
+
+Значения селекторов
+
+Ожидаемые vs фактические результаты
+
+Пример вывода в консоли:
+Running 5 tests using 1 worker
+
+  ✓ Login with valid credentials (6.3s)
+  ✓ Check account balance (2.9s)
+  - Transfer funds (skipped: Not enough accounts)
+  - API - Get account information (skipped: API unavailable)
+  ✓ Error handling - Login with invalid credentials (2.7s)
+
+  3 passed (17.1s)
+  2 skipped
+
+Скриншоты и видео:
+При падении теста автоматически сохраняются:
+
+📸 test-results/скриншот.png — момент ошибки
+
+🎥 test-results/видео.webm — полная запись
+
+🔍 test-results/trace.zip — трассировка для отладки
+
+Просмотр трейса:
+npx playwright show-trace test-results/trace.zip
+
+---
+
+## Как вставить:
+
+1. Найди в README.md секцию `## 📊 Тестовые сценарии`
+2. Удали всё до `## 🏗️ Архитектура проекта`
+3. Вставь первый блок
+4. Найди `## 🔧 Технологический стек`
+5. Замени на второй блок
+6. Найди `## 📊 Пример отчёта`
+7. Замени на третий блок
+
+**Или проще:** скопируй весь README заново и замени нужные секции.
+
+После этого сохрани (`Ctrl+S`) и запушь:
+```bash
+git add README.md
+git commit -m "Обновил секции тестов, стека и отчётов"
+git push
+
+
+---
+
+## 👨‍💻 Автор
+
+<div align="center">
+  
+### **Sony Fridmo**
+
+**QA Automation Engineer**
+
+[![Email](https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:alexandrikuskos@gmail.com)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/sonyfridmo/)
+[![Telegram](https://img.shields.io/badge/Telegram-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white)](https://t.me/fridmo_sony)
+[![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/sonyfrid)
+
+</div>
+
+---
+
 
