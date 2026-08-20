@@ -113,6 +113,9 @@ npm run report
 - **Запланировано:** 6
 - **Покрытие:** 33%
 
+## 🏗️ Архитектура проекта
+
+```
 fintech-qa-automation/
 │
 ├── 📁 tests/                    # Тестовые сценарии
@@ -136,6 +139,7 @@ fintech-qa-automation/
 ├── 📄 playwright.config.ts      # Конфигурация Playwright
 ├── 📄 package.json              # Зависимости и скрипты
 └── 📄 README.md                 # Документация
+```
 
 ## 🔧 Технологический стек
 
