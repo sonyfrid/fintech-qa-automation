@@ -87,7 +87,7 @@ npm run report
 
 ## 📝 Автор
 
-[Ваше имя]
+Soni Fridmo
 
 ## 📄 Лицензия
 
