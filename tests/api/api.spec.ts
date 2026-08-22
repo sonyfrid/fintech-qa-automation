@@ -2,80 +2,78 @@ import { test, expect } from '@playwright/test';
 
 test.describe('Parabank API Tests', () => {
   
-  test('TC-006: API - Login with valid credentials', async ({ request }) => {
-    const response = await request.get(
-      'https://parabank.parasoft.com/parabank/services/bank/login/john/demo'
+  test('TC-006: API - Get account information after UI login', async ({ page }) => {
+    // Шаг 1: Логинимся через UI (создаёт сессию)
+    await page.goto('https://parabank.parasoft.com/parabank/index.htm');
+    await page.fill('input[name="username"]', 'john');
+    await page.fill('input[name="password"]', 'demo');
+    await page.click('input[value="Log In"]');
+    
+    // Ждём, пока попадём на overview
+    await page.waitForURL('**/overview.htm', { timeout: 10000 });
+    
+    // Шаг 2: Делаем API-запрос (cookie подтянется автоматически)
+    const apiResponse = await page.request.get(
+      'https://parabank.parasoft.com/parabank/services_proxy/bank/customers/12212/accounts'
     );
     
-    console.log('Status:', response.status());
-    expect(response.ok()).toBeTruthy();
+    console.log('API status:', apiResponse.status());
+    expect(apiResponse.status()).toBe(200);
     
-    const responseBody = await response.text();
-    console.log('Response (первые 200 символов):', responseBody.substring(0, 200));
+    // Шаг 3: Парсим JSON (не XML!)
+    const accountsData = await apiResponse.json();
+    console.log('Тип данных:', typeof accountsData);
+    console.log('Количество счетов:', accountsData.length);
     
-    expect(responseBody).toContain('<id>');
-    expect(responseBody).toContain('<firstName>John</firstName>');
+    // Проверяем, что это массив и он не пустой
+    expect(Array.isArray(accountsData)).toBeTruthy();
+    expect(accountsData.length).toBeGreaterThan(0);
+    
+    // Проверяем структуру первого счёта
+    expect(accountsData[0]).toHaveProperty('id');
+    expect(accountsData[0]).toHaveProperty('customerId');
+    expect(accountsData[0]).toHaveProperty('type');
+    expect(accountsData[0]).toHaveProperty('balance');
+    
+    console.log('Первый счёт:', accountsData[0]);
   });
 
-  test('TC-007: API - Get account information', async ({ request }) => {
-    // Логинимся через API
-    const loginResponse = await request.get(
-      'https://parabank.parasoft.com/parabank/services/bank/login/john/demo'
+  test('TC-007: API - Check balance from accounts after UI login', async ({ page }) => {
+    // Шаг 1: Логинимся через UI
+    await page.goto('https://parabank.parasoft.com/parabank/index.htm');
+    await page.fill('input[name="username"]', 'john');
+    await page.fill('input[name="password"]', 'demo');
+    await page.click('input[value="Log In"]');
+    
+    await page.waitForURL('**/overview.htm', { timeout: 10000 });
+    
+    // Шаг 2: Делаем API-запрос
+    const apiResponse = await page.request.get(
+      'https://parabank.parasoft.com/parabank/services_proxy/bank/customers/12212/accounts'
     );
     
-    if (!loginResponse.ok()) {
-      console.log('API логин недоступен');
-      test.skip();
-      return;
-    }
+    expect(apiResponse.ok()).toBeTruthy();
     
-    const loginData = await loginResponse.text();
-    const customerIdMatch = loginData.match(/<id>(\d+)<\/id>/);
+    // Шаг 3: Парсим JSON
+    const accountsData = await apiResponse.json();
     
-    if (!customerIdMatch) {
-      console.log('Customer ID не найден');
-      test.skip();
-      return;
-    }
+    // Проверяем, что у первого счёта есть баланс
+    const firstAccount = accountsData[0];
+    expect(firstAccount.balance).toBeDefined();
     
-    const customerId = customerIdMatch[1];
-    console.log('Customer ID:', customerId);
+    // Баланс может быть любым числом (включая отрицательное)
+    const balance = firstAccount.balance;
+    console.log('Баланс первого счёта:', balance);
+    expect(typeof balance).toBe('number');
     
-    // Получаем счета клиента
-    const accountsResponse = await request.get(
-      `https://parabank.parasoft.com/parabank/services/bank/customers/${customerId}/accounts`
-    );
+    // Проверяем, что ID счёта существует
+    expect(firstAccount.id).toBeTruthy();
+    console.log('ID первого счёта:', firstAccount.id);
     
-    console.log('Accounts response status:', accountsResponse.status());
-    
-    if (!accountsResponse.ok()) {
-      console.log('Не удалось получить счета');
-      test.skip();
-      return;
-    }
-    
-    // API возвращает XML
-    const accountsData = await accountsResponse.text();
-    console.log('Accounts data (первые 300 символов):', accountsData.substring(0, 300));
-    
-    // Проверяем, что в ответе есть информация о счетах
-    expect(accountsData).toContain('<account>');
-    expect(accountsData).toContain('<balance>');
-    
-    // Подсчитываем количество счетов
-    const accountCount = (accountsData.match(/<account>/g) || []).length;
-    console.log('Количество счетов:', accountCount);
-    expect(accountCount).toBeGreaterThan(0);
-    
-    // Проверяем, что баланс - это число (без знака доллара в XML)
-    const balanceMatch = accountsData.match(/<balance>(\d+\.\d{2})<\/balance>/);
-    expect(balanceMatch).toBeTruthy();
-    
-    if (balanceMatch) {
-      const balance = parseFloat(balanceMatch[1]);
-      console.log('Баланс первого счета:', balance);
-      expect(balance).toBeGreaterThan(0);
-    }
+    // Дополнительно: выведем все типы счетов
+    const types = accountsData.map((acc: any) => acc.type);
+    const uniqueTypes = [...new Set(types)];
+    console.log('Типы счетов:', uniqueTypes);
   });
 
 });

@@ -3,18 +3,25 @@
   "version": "1.0.0",
   "description": "Professional QA Automation Framework for Fintech Application",
   "scripts": {
-    "test": "npx playwright test",
-    "test:headed": "npx playwright test --headed",
-    "test:debug": "npx playwright test --debug",
-    "test:api": "npx playwright test tests/api --headed",
-    "report": "npx playwright show-report",
-    "clean": "rm -rf test-results playwright-report"
-  },
-  "keywords": ["playwright", "automation", "fintech", "qa"],
+  "test": "npx playwright test",
+  "test:headed": "npx playwright test --headed",
+  "test:debug": "npx playwright test --debug",
+  "report": "npx playwright show-report",
+  "allure:generate": "allure generate ./allure-results --clean",
+  "allure:open": "allure open ./allure-report",
+  "allure:serve": "npx allure serve ./allure-results"
+},
+  "keywords": [
+    "playwright",
+    "automation",
+    "fintech",
+    "qa"
+  ],
   "author": "Your Name",
   "license": "ISC",
   "devDependencies": {
-    "@playwright/test": "^1.40.0",
-    "@faker-js/faker": "^8.0.0"
+    "@faker-js/faker": "^8.0.0",
+    "@playwright/test": "^1.62.1",
+    "allure-playwright": "^3.10.2"
   }
 }

@@ -1,0 +1,1 @@
+Заголовки таблицы: [ 'Account', 'Balance*', 'Available Amount' ]

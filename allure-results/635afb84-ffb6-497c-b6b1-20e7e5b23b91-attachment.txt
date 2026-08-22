@@ -1,0 +1,3 @@
+Cookies: [ 'JSESSIONID=F4690A8BCF...' ]
+API status: 200
+Response (первые 300 символов): [{"id":12345,"customerId":12212,"type":"CHECKING","balance":-3910.00},{"id":12456,"customerId":12212,"type":"CHECKING","balance":410.45},{"id":12567,"customerId":12212,"type":"CHECKING","balance":0.00},{"id":12678,"customerId":12212,"type":"SAVINGS","balance":-200.00},{"id":12789,"customerId":12212,

@@ -1,0 +1,4 @@
+API status: 200
+Тип данных: object
+Количество счетов: 19
+Первый счёт: { id: 12345, customerId: 12212, type: 'CHECKING', balance: -3910 }

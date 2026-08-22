@@ -1,0 +1,2 @@
+Create account status: 400
+Create account API недоступен, пропускаем тест

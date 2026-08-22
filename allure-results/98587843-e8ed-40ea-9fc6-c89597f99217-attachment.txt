@@ -1,0 +1,5 @@
+Customer ID: 12212
+Accounts response status: 200
+Accounts data (первые 300 символов): <?xml version="1.0" encoding="UTF-8"?><accounts><account><id>12345</id><customerId>12212</customerId><type>CHECKING</type><balance>-3410.00</balance></account><account><id>12456</id><customerId>12212</customerId><type>CHECKING</type><balance>-89.55</balance></account><account><id>12567</id><customer
+Количество счетов: 18
+Баланс первого счета: 0

@@ -1,0 +1,2 @@
+Status: 200
+Response (первые 200 символов): <?xml version="1.0" encoding="UTF-8" standalone="yes"?><customer><id>12212</id><firstName>John</firstName><lastName>Smith</lastName><address><street>1431 Main St</street><city>Beverly Hills</city><sta
