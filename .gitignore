@@ -5,6 +5,8 @@ node_modules/
 test-results/
 playwright-report/
 screenshots/
+allure-results/
+allure-report/
 
 # Временные файлы
 *.zip
